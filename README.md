@@ -1,5 +1,5 @@
 # rsync-systemd-template
- Template for Rsync backups to a (network) remote as systemd units.
+ Template for [Rsync](https://download.samba.org/pub/rsync/rsync.1) backups to a (network) remote as systemd units.
 
 ## Usage
 
@@ -8,6 +8,8 @@
    * The latter means a path like `/some/custom-path/name` leads to `rsync-some-custom_path-name.(service|timer)`
 2. Edit the unit files and set all the values contained in `<angle brackets>`.
 3. Copy them to `/etc/systemd/system/`.
+4. Call `sudo systemctl daemon-reload`.
+5. Test the service with `sudo systemctl start rsync-your-service`.
 
 ### Service
 
