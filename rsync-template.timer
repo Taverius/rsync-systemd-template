@@ -1,0 +1,12 @@
+[Unit]
+Description=<PATH> Backup Timer
+Documentation=man:rsync(1)
+
+[Timer]
+Unit=rsync-<path>.service
+OnCalendar=<time definition>
+OnBootSec=5m
+Persistent=true
+
+[Install]
+WantedBy=timers.target

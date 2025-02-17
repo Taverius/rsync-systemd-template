@@ -1,0 +1,26 @@
+[Unit]
+Description=<PATH> Backup via Rsync to <remote>
+Documentation=man:rsync(1)
+After=network-online.target
+BindsTo=network-online.target
+Wants=rsync-<path>.timer
+ConditionDirectoryNotEmpty=/<local>/<path>/
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+CPUSchedulingPolicy=idle
+IOSchedulingClass=idle
+Restart=on-failure
+RestartSec=5m
+RestartMaxDelaySec=1h
+RestartSteps=3
+Environment="PASS=/<path>/<to>/<password-file>"
+Environment="LOCAL=/<local>/<path>/"
+Environment="REMOTE=<user>@<host>::<module>/<remote>/<path>/"
+Environment="ARGS=--compress --recursive --perms --times --quiet --delete-during"
+ExecStart=/usr/bin/rsync $ARGS --password-file=${PASS} ${LOCAL} ${REMOTE}
+
+[Install]
+WantedBy=multi-user.target
